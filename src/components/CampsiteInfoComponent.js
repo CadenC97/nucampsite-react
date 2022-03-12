@@ -1,58 +1,73 @@
-import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap'
-import React, { Component } from 'react'
-import { CAMPSITES } from '../shared/campsites'
-class CampsiteInfo extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-  renderCampsite(campsites) {
+import React from 'react'
+import { Link } from 'react-router-dom'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Card,
+  CardBody,
+  CardHeader,
+  Media,
+  CardImg,
+  CardTitle,
+  CardText,
+} from 'reactstrap'
+function RenderCampsite({ campsite }) {
+  return (
+    <div className="col-md-5 m-1">
+      <Card>
+        <CardImg top src={campsite.image} alt={campsite.name} />
+        <CardBody>
+          <CardTitle>{campsite.name}</CardTitle>
+          <CardText>{campsite.description}</CardText>
+        </CardBody>
+      </Card>
+    </div>
+  )
+}
+function RenderComments({ comments }) {
+  if (comments) {
     return (
-      <div className="col-md-5 m-1">
-        <Card>
-          <CardImg top src={campsites.image} alt={campsites.name} />
-          <CardBody>
-            <CardTitle>{this.props.campsite.name}</CardTitle>
-            <CardText>{this.props.campsite.description}</CardText>
-          </CardBody>
-        </Card>
+      <div className="col col-md-5 m-1">
+        <h4>Comments</h4>
+        {comments.map((comment) => {
+          return (
+            <div key={comment.id}>
+              <p>
+                {' '}
+                {comment.text} <br></br> -- {comment.author}, {comment.date}
+              </p>
+            </div>
+          )
+        })}
       </div>
     )
+  } else {
+    return <div>Not Working</div>
   }
-  renderComments(comments) {
-    if (comments) {
-      return (
-        <div className="col col-md-5 m-1">
-          <h4>Comments</h4>
-          {comments.map((comment) => {
-            return (
-              <div key={comment.id}>
-                <p>
-                  {' '}
-                  {comment.text} <br></br> -- {comment.author}, {comment.date}
-                </p>
-              </div>
-            )
-          })}
-        </div>
-      )
-    } else {
-      return <div>Not Working</div>
-    }
-  }
-  render() {
-    if (this.props.campsite) {
-      return (
-        <div className="container">
-          <div className="row">
-            {this.renderCampsite(this.props.campsite)}
-            {this.renderComments(this.props.campsite.comments)}
+}
+function CampsiteInfo(props) {
+  if (props.campsite) {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <Breadcrumb>
+              <BreadcrumbItem>
+                <Link to="/directory">Directory</Link>
+              </BreadcrumbItem>
+              <BreadcrumbItem active>{props.campsite.name}</BreadcrumbItem>
+            </Breadcrumb>
+            <h2>{props.campsite.name}</h2>
+            <hr />
           </div>
+          <div className="row"></div>
+          <RenderCampsite campsite={props.campsite} />
+          <RenderComments comments={props.campsite.comments} />
         </div>
-      )
-    } else {
-      return <div></div>
-    }
+      </div>
+    )
+  } else {
+    return <div></div>
   }
 }
 
