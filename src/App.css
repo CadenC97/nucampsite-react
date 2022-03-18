@@ -6,6 +6,10 @@ h2,
 h3 .card-body > .card-title {
   font-family: 'Lobster', cursive;
 }
+
+h3 {
+  font-family: 'Lobster', cursive;
+}
 .card-title {
   font-weight: 500;
   font-size: 1.25rem;

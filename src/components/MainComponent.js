@@ -65,7 +65,7 @@ class Main extends Component {
           <Route exact path="/contactus" component={Contact} />
           <Route
             exact
-            path="/about"
+            path="/aboutus"
             render={() => <About partners={this.state.partners} />}
           />
           <Redirect to="/home" />
