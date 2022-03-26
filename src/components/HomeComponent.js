@@ -19,7 +19,7 @@ function RenderCard({ item, isLoading, errMess }) {
       }}
     >
       <Card>
-        <CardImg src={baseUrl + item.image} alt={item.name} />
+        <CardImg src={baseUrl + promotion.image} alt={item.name} />
         <CardBody>
           <CardTitle>{item.name}</CardTitle>
           <CardText>{item.description}</CardText>
@@ -28,7 +28,7 @@ function RenderCard({ item, isLoading, errMess }) {
     </FadeTransform>
   )
 }
-
+//
 function Home(props) {
   return (
     <div className="container">
