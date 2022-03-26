@@ -3,16 +3,14 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   Button,
-  Form,
   FormGroup,
   Label,
   Row,
   Col,
-  FormFeedback,
 } from 'reactstrap'
 import Directory from './DirectoryComponent'
 import { Link } from 'react-router-dom'
-import { Control, LocalForm, Errors, actions } from 'react-redux-form'
+import { Control, Form, Errors } from 'react-redux-form'
 
 const required = (val) => val && val.length
 const maxLength = (len) => (val) => !val || val.length <= len
@@ -164,7 +162,7 @@ class Contact extends Component {
                   First Name
                 </Label>
                 <Col md={10}>
-                  <Control.text
+                  <Control.Text
                     model=".firstName"
                     id="firstName"
                     name="firstName"
@@ -194,7 +192,7 @@ class Contact extends Component {
                   Last Name
                 </Label>
                 <Col md={10}>
-                  <Control.text
+                  <Control.Text
                     model=".lastName"
                     id="lastName"
                     name="lastName"
@@ -224,7 +222,7 @@ class Contact extends Component {
                   Phone
                 </Label>
                 <Col md={10}>
-                  <Control.text
+                  <Control.Text
                     model=".phoneNum"
                     id="phoneNum"
                     name="phoneNum"
@@ -256,7 +254,7 @@ class Contact extends Component {
                   Email
                 </Label>
                 <Col md={10}>
-                  <Control.text
+                  <Control.Text
                     model=".email"
                     id="email"
                     name="email"
@@ -283,7 +281,7 @@ class Contact extends Component {
                 <Col md={{ size: 4, offset: 2 }}>
                   <div className="form-check">
                     <Label check>
-                      <Control.checkbox
+                      <Control.Checkbox
                         model=".agree"
                         name="agree"
                         className="form-check-input"
@@ -293,10 +291,10 @@ class Contact extends Component {
                   </div>
                 </Col>
                 <Col md={4}>
-                  <Control.select model=".contactType" name="contactType">
+                  <Control.Select model=".contactType" name="contactType">
                     <option>By Phone</option>
                     <option>By Email</option>
-                  </Control.select>
+                  </Control.Select>
                 </Col>
               </Row>
               <Row className="form-group">
@@ -304,7 +302,7 @@ class Contact extends Component {
                   Your Feedback
                 </label>
                 <Col md={10}>
-                  <Control.textarea
+                  <Control.Textarea
                     model=".feedback"
                     id="feedback"
                     name="feedback"

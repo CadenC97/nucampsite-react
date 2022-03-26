@@ -18,6 +18,7 @@ import {
 } from 'reactstrap'
 import { Loading } from './LoadingComponent'
 import { baseUrl } from '../shared/baseUrl'
+import { FadeTransform, Fade, Stagger } from 'react-animation-components'
 
 const required = (val) => val && val.length
 const maxLength = (len) => (val) => !val || val.length <= len
@@ -26,13 +27,20 @@ const minLength = (len) => (val) => val && val.length >= len
 function RenderCampsite({ campsite }) {
   return (
     <div className="col-md-5 m-1">
-      <Card>
-        <CardImg top src={baseUrl + campsite.image} alt={campsite.name} />
-        <CardBody>
-          <CardTitle>{campsite.name}</CardTitle>
-          <CardText>{campsite.description}</CardText>
-        </CardBody>
-      </Card>
+      <FadeTransform
+        in
+        transformProps={{
+          exitTransform: 'scale(0.5) translateY(-50%)',
+        }}
+      >
+        <Card>
+          <CardImg top src={baseUrl + campsite.image} alt={campsite.name} />
+          <CardBody>
+            <CardTitle>{campsite.name}</CardTitle>
+            <CardText>{campsite.description}</CardText>
+          </CardBody>
+        </Card>
+      </FadeTransform>
     </div>
   )
 }
@@ -42,16 +50,27 @@ function RenderComments({ comments, postComment, campsiteId }) {
     return (
       <div className="col col-md-5 m-1">
         <h4>Comments</h4>
-        {comments.map((comment) => {
-          return (
-            <div key={comment.id}>
-              <p>
-                {' '}
-                {comment.text} <br></br> -- {comment.author}, {comment.date}
-              </p>
-            </div>
-          )
-        })}
+        <Stagger in>
+          {comments.map((comment) => {
+            return (
+              <Fade in key={comment.id}>
+                <div>
+                  <p>
+                    {comment.text}
+                    <br />
+                    -- {comment.author},{' '}
+                    {new Intl.DateTimeFormat('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: '2-digit',
+                    }).format(new Date(Date.parse(comment.date)))}
+                  </p>
+                </div>
+              </Fade>
+            )
+          })}
+        </Stagger>
+        )
         <div>
           <CommentForm campsiteId={campsiteId} postComment={postComment} />
         </div>
@@ -116,7 +135,7 @@ class CommentForm extends Component {
             <LocalForm>
               <FormGroup>
                 <Label htmlFor="rating">Rating</Label>
-                <Control.select
+                <Control.Select
                   model=".rating"
                   id="rating"
                   name="rating"
@@ -127,11 +146,11 @@ class CommentForm extends Component {
                   <option value="3">3</option>
                   <option value="4">4</option>
                   <option value="5">5</option>
-                </Control.select>
+                </Control.Select>
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="author">Your Name</Label>
-                <Control.text
+                <Control.Text
                   model=".author"
                   id="author"
                   name="author"
@@ -157,7 +176,7 @@ class CommentForm extends Component {
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="text">Comment</Label>
-                <Control.textarea
+                <Control.Textarea
                   rows={6}
                   model=".text"
                   name="text"

@@ -1,10 +1,6 @@
 import * as ActionTypes from './ActionTypes'
 
-export const Comments = (
-  state = { errMess: null, comments: [] },
-  COMMENTS,
-  action,
-) => {
+export const Comments = (state = { errMess: null, comments: [] }, action) => {
   switch (action.type) {
     case ActionTypes.ADD_COMMENTS:
       return { ...state, errMess: null, comments: action.payload }
